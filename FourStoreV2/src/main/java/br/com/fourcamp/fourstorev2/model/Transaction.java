@@ -17,6 +17,8 @@ public class Transaction {
 		products = new HashMap<Product, Integer>();
 	}
 
+	public Transaction(){}
+
 	public Costumer getConstumer() {
 		return constumer;
 	}
@@ -38,6 +40,10 @@ public class Transaction {
 
 	public Double getTotalPrice() {		
 		return totalPrice;
+	}
+
+	public void setProducts(HashMap<Product, Integer> products){
+		this.products = products;
 	}
 
 	public void addProducts(Product product, Integer quantityProduct) {
