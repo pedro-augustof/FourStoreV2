@@ -10,9 +10,7 @@ import br.com.fourcamp.fourstorev2.exception.StockInsufficientException;
 import br.com.fourcamp.fourstorev2.model.Product;
 import br.com.fourcamp.fourstorev2.model.Stock;
 import br.com.fourcamp.fourstorev2.model.Transaction;
-import org.springframework.stereotype.Service;
 
-@Service
 public class StockService {
 
 	private ProductData productData;
@@ -86,7 +84,7 @@ public class StockService {
 		List<Stock> products = productData.findAll();
 		Product product = verifyIfExists(sku);
 		for (Stock stock : products) {
-			if (stock.getProduct().equals(product) && stock.getQuantity() >= quantity) {
+			if (stock.getProduct().equals(product) && stock.getQuantity() > quantity) {
 				return product;
 			} 
 		} return null;

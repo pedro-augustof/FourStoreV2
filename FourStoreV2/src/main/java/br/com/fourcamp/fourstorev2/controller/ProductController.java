@@ -52,12 +52,8 @@ public class ProductController {
 	}
 
 	@GetMapping("/find")
-	public String findSku(@RequestBody Product product) throws ProductNotFoundException {
-		try {
-			return stock.verifyIfExists(product.getSku()).toString();
-		} catch (NullPointerException e){
-			return "Sku não encontrado!";
-		}
+	public String findSku(@RequestParam String sku) throws ProductNotFoundException {
+		return stock.verifyIfExists(sku).toString();
 	}
 
 	@GetMapping("/listall")

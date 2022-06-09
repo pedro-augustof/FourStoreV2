@@ -6,9 +6,7 @@ import br.com.fourcamp.fourstorev2.data.TransactionData;
 import br.com.fourcamp.fourstorev2.exception.ProductNotFoundException;
 import br.com.fourcamp.fourstorev2.exception.StockInsufficientException;
 import br.com.fourcamp.fourstorev2.model.Transaction;
-import org.springframework.stereotype.Service;
 
-@Service
 public class TransactionService {
 
 	private TransactionData transactionData;
