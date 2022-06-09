@@ -10,7 +10,9 @@ import br.com.fourcamp.fourstorev2.exception.StockInsufficientException;
 import br.com.fourcamp.fourstorev2.model.Product;
 import br.com.fourcamp.fourstorev2.model.Stock;
 import br.com.fourcamp.fourstorev2.model.Transaction;
+import org.springframework.stereotype.Service;
 
+@Service
 public class StockService {
 
 	private ProductData productData;
@@ -21,8 +23,8 @@ public class StockService {
 
 	public String createProductStock(Product product, Integer quantity) throws InvalidSellValueException {
 		validateProfit(product);
-        String savedProduct = setProduct(product, quantity);
-        return savedProduct;
+		String savedProduct = setProduct(product, quantity);
+		return savedProduct;
 	}
 
 	public List<Stock> listAll() {
@@ -43,22 +45,22 @@ public class StockService {
 			return null;
 		}
 	}
-	
+
 	public void deleteBySku(String sku) throws ProductNotFoundException {
-        verifyIfExists(sku);
-        productData.deleteBySku(sku);
-    }
-	
+		verifyIfExists(sku);
+		productData.deleteBySku(sku);
+	}
+
 	public Product verifyIfExists(String sku) throws ProductNotFoundException {
-    	if (productData.findBySku(sku).equals(null)) {
-    		throw new ProductNotFoundException(sku);
-    	} else {
-    		return productData.findBySku(sku);
-    	}
-    }
+		if (productData.findBySku(sku).equals(null)) {
+			throw new ProductNotFoundException(sku);
+		} else {
+			return productData.findBySku(sku);
+		}
+	}
 
 	public boolean deductFromStock(Transaction transaction)
-			throws ProductNotFoundException, StockInsufficientException {		
+			throws ProductNotFoundException, StockInsufficientException {
 		checkStock(transaction.getProducts());
 		return true;
 	}
@@ -84,26 +86,26 @@ public class StockService {
 		List<Stock> products = productData.findAll();
 		Product product = verifyIfExists(sku);
 		for (Stock stock : products) {
-			if (stock.getProduct().equals(product) && stock.getQuantity() > quantity) {
+			if (stock.getProduct().equals(product) && stock.getQuantity() >= quantity) {
 				return product;
-			} 
+			}
 		} return null;
 	}
-		
+
 	public void validateProfit(Product product) throws InvalidSellValueException {
-    	if ((product.getBuyPrice() * 1.25) > product.getSellPrice()) { 
-    		throw new InvalidSellValueException();
-    	}
-    }
-	
+		if ((product.getBuyPrice() * 1.25) > product.getSellPrice()) {
+			throw new InvalidSellValueException();
+		}
+	}
+
 	private String setProduct(Product product, Integer quantity) {
 		Stock stock = new Stock(product, quantity);
-        productData.save(stock);
-        return quantity + " unidades adicionadas com sucesso!";
-    }
-	
+		productData.save(stock);
+		return quantity + " unidades adicionadas com sucesso!";
+	}
+
 	public Product findBySku(String sku) throws ProductNotFoundException {
-        Product product = verifyIfExists(sku);
-        return product;
-    }
+		Product product = verifyIfExists(sku);
+		return product;
+	}
 }

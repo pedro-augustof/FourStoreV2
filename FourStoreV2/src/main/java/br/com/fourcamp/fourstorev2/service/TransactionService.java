@@ -6,7 +6,9 @@ import br.com.fourcamp.fourstorev2.data.TransactionData;
 import br.com.fourcamp.fourstorev2.exception.ProductNotFoundException;
 import br.com.fourcamp.fourstorev2.exception.StockInsufficientException;
 import br.com.fourcamp.fourstorev2.model.Transaction;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TransactionService {
 
 	private TransactionData transactionData;
@@ -23,7 +25,7 @@ public class TransactionService {
 			Transaction savedTransaction = setTransaction(transaction);
 			return createMessageResponse(savedTransaction.getId(), " criada.");
 		}
-		
+
 		return "Transa��o n�o criada!";
 	}
 
